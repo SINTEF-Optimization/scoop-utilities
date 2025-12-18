@@ -1,0 +1,80 @@
+# This file defines the pipelines run by GitLab for ScoopUtilities.
+# This is exclusively for use by SINTEF in SINTEF's internal repo, everybody else should ignore this file.
+
+# Place project specific paths in variables to make the rest of the script more generic
+variables:
+  NUGET_PACKAGES_DIRECTORY: '.nuget'
+
+# Speed up build times by caching and reusing nuget packages
+cache:
+ key: 'nuget-packages'
+ paths:
+  - '**/project.assets.json'
+  - '**/*.csproj.nuget.*'
+  - '$NUGET_PACKAGES_DIRECTORY'
+
+# Include standard workflow and templates
+include:
+  - project: optimization/pipeline-templates
+    ref: main
+    file: workflow_push_merge_requests.yaml
+  - project: optimization/pipeline-templates
+    ref: main
+    file: common_job_templates.yaml
+
+stages:
+  - merge_label_check_stage
+  - build_stage
+  - test_stage
+  - publish_stage
+  - merge_version_check_stage
+
+build:
+  stage: build_stage
+  image: mcr.microsoft.com/dotnet/sdk:8.0
+  script:
+    - 'dotnet restore --packages $NUGET_PACKAGES_DIRECTORY'
+    - 'dotnet build -c Release --no-restore'
+
+test:
+  stage: test_stage
+  tags:
+    - windows
+  script:
+    - 'dotnet restore --packages $NUGET_PACKAGES_DIRECTORY Sintef.Scoop.Utilities.Tests' 
+    - 'dotnet test --no-restore --logger:"trx;LogFileName=TestResults.xml" Sintef.Scoop.Utilities.Tests'
+  artifacts:
+    when: always  # save test results even when the task fails
+    expire_in: 1 year
+    paths:
+      - "**/TestResults.xml" 
+
+test_windows:
+  stage: test_stage
+  # This job must run on Windows (tests use e.g. Windows registry)
+  tags:
+    - windows
+  script:
+    #- 'Invoke-WebRequest -Uri https://dot.net/v1/dotnet-install.ps1 -OutFile "./dotnet-install.ps1"; ./dotnet-install.ps1 -Channel 6.0'
+    - 'dotnet restore --packages $NUGET_PACKAGES_DIRECTORY Sintef.Scoop.Utilities.Windows.Tests' 
+    - 'dotnet test --no-restore --logger:"trx;LogFileName=TestResults.xml" Sintef.Scoop.Utilities.Windows.Tests'
+  artifacts:
+    when: always  # save test results even when the task fails
+    expire_in: 1 year
+    paths:
+      - "**/TestResults.xml" 
+
+# NOTE: This pushes the packages first, then the symbol packages. This is because of a bug with indexing on GitLab. See: https://gitlab.com/gitlab-org/gitlab/-/issues/415552. When this issue is resolved. we should remove the separate publishing of nugets and symbols
+publish:
+  stage: publish_stage
+  only:
+    - main
+  image: mcr.microsoft.com/dotnet/sdk:8.0
+  script:
+    - 'dotnet restore --packages $NUGET_PACKAGES_DIRECTORY'
+    - dotnet pack -c Release --no-restore
+    - dotnet new nugetconfig
+    - dotnet nuget add source "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/nuget/index.json" --name gitlab_push --username gitlab-ci-token --password $CI_JOB_TOKEN --store-password-in-clear-text --configfile nuget.config
+    - dotnet nuget push "**/Release/*.nupkg" --no-symbols --source gitlab_push
+    - sleep 5
+    - dotnet nuget push "**/Release/*.snupkg" --source gitlab_push

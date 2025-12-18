@@ -1,0 +1,61 @@
+1. Introduction
+
+This Contributor Agreement (the "Agreement") is entered into between SINTEF ("we," "us," "our," or the "Project") and any individual or entity that submits a
+contribution to the Project ("you," "your," or "Contributor").
+
+This Agreement clarifies the intellectual property rights granted by Contributors to the Project. These terms protect both the Project and its users, and it is
+important that the Project maintain a clear record of these rights.
+
+The Project is accessible at https://www.github.com
+
+2. Definitions
+
+For the purposes of this Agreement:
+
+* "Contribution" means any software code that is submitted by you to the Project for inclusion in, or documentation of, the Project.
+* "Submit" means any form of electronic, verbal, or written communication sent to the Project, including but not limited to communication on electronic mailing
+ lists, source code control systems, and issue tracking systems that are managed by, or on behalf of, the Project.
+* "Work" means the collective software code managed by the Project, to which your Contribution may be added.
+
+3. Grant of Rights
+
+By submiting code to this project you confirm that:
+
+§1:
+- The Contribution is your original work, or you have the right to submit it under the terms of this Agreement.
+
+§2:
+You grant us a worldwide, royalty free, perpetual and irrevocable license to:
+- modify the contribution
+- publish the contribution in original or modified form
+- create derivative works based the contribution
+- to combine the contribution with other software
+- if we include the contribution in derivative works, we may sublicence the contribution under any license including copyleft, permissive, commercial or
+proprietary licenses.
+
+§3:
+You retain ownership of the copyright of your contribution and have the same rights to use or license the contribtion which you would have had without entering
+into the agreement.
+
+4. Legal Terms
+
+4.1 Representations and Warranties
+
+You represent and warrant that:
+
+* You have the legal authority to enter into this Agreement.
+* Your Contribution does not violate any third party's rights, including but not limited to intellectual property rights, privacy rights, or publicity rights.
+* Your Contribution complies with all applicable laws and regulations.
+
+4.2 Indemnification
+
+You agree to indemnify, defend, and hold harmless the Project and its officers, directors, employees, and agents from and against any and all claims, damages,
+obligations, losses, liabilities, costs, and expenses (including but not limited to attorney's fees) arising from your Contribution or any breach of this
+Agreement.
+
+4.3 Limitation of Liability
+
+IN NO EVENT SHALL THE PROJECT OR ITS REPRESENTATIVES BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF YOUR CONTRIBUTION, EVEN IF
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

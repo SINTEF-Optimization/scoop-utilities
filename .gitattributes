@@ -1,0 +1,53 @@
+* text=auto
+
+# Git
+.gitattributes text
+.gitconfig text
+.gitignore text
+.gitmodules text
+
+# Windows
+*.bat text eol=crlf
+
+# Linux
+*.sh text eol=lf
+
+# Visual studio
+*.csproj text eol=crlf
+*.sln text eol=crlf
+*.snk binary
+
+# Language
+*.cs text
+*.resx text
+*.py text
+*.js text
+
+# Text files
+*.txt text
+*.md text
+*.config text
+*.kml text
+*.xml text
+
+# Binary files
+*.npy binary
+*.npz binary
+*.png binary
+*.zip binary
+*.gz binary
+*.tar binary
+*.bz2 binary
+*.kmz binary
+
+# Image files
+*.jpeg binary
+*.jpg binary
+*.avif binary
+*.gif binary
+*.png binary
+*.svg binary
+*.bmp binary
+*.ico binary
+*.tif binary
+*.tiff binary
